@@ -103,7 +103,7 @@ export function TriggerForm({ initialData }: TriggerFormProps) {
       recipientField: initialData?.recipientField ?? '',
       cooldownDays: initialData?.cooldownDays ?? 0,
       sendOnce: initialData?.sendOnce ?? false,
-      status: initialData?.status ?? 'inactive',
+      status: initialData?.status ?? 'active',
       conditions: initialData?.conditions ?? {
         operator: 'AND',
         rules: [],

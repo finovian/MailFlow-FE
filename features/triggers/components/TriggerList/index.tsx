@@ -141,7 +141,7 @@ export function TriggerList() {
         recipientField: trigger.recipientField,
         cooldownDays: trigger.cooldownDays,
         sendOnce: trigger.sendOnce,
-        status: 'inactive', // inactive by default
+        status: 'active', // active by default
       },
       {
         onSuccess: () => {

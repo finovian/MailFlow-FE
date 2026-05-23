@@ -31,7 +31,7 @@ const baseCreateTriggerSchema = z.object({
   recipientField: z.string().min(1, 'Recipient field is required'),
   cooldownDays: z.number().min(0, 'Cooldown must be 0 or greater').optional().default(0),
   sendOnce: z.boolean().optional().default(false),
-  status: z.enum(['active', 'inactive', 'ACTIVE', 'INACTIVE']).optional().default('inactive') as any,
+  status: z.enum(['active', 'inactive', 'ACTIVE', 'INACTIVE']).optional().default('active') as any,
 })
 
 export const createTriggerSchema = baseCreateTriggerSchema as unknown as z.ZodType<CreateTriggerDto>

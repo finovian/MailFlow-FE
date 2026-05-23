@@ -32,7 +32,7 @@ export const triggersService = {
       ...item,
       templateId: item.template?.id || item.templateId || '',
       templateName: item.template?.name || item.templateName || '',
-      status: (item.status || 'inactive').toLowerCase() as any
+      status: (item.status || 'active').toLowerCase() as any
     }))
 
     const result: PaginatedResponse<Trigger> = {
@@ -52,7 +52,7 @@ export const triggersService = {
       ...item,
       templateId: item.template?.id || item.templateId || '',
       templateName: item.template?.name || item.templateName || '',
-      status: (item.status || 'inactive').toLowerCase() as any
+      status: (item.status || 'active').toLowerCase() as any
     }
   },
 
@@ -73,7 +73,7 @@ export const triggersService = {
       ...item,
       templateId: item.template?.id || item.templateId || '',
       templateName: item.template?.name || item.templateName || '',
-      status: (item.status || 'inactive').toLowerCase() as any
+      status: (item.status || 'active').toLowerCase() as any
     }
   },
 
@@ -94,7 +94,7 @@ export const triggersService = {
       ...item,
       templateId: item.template?.id || item.templateId || '',
       templateName: item.template?.name || item.templateName || '',
-      status: (item.status || 'inactive').toLowerCase() as any
+      status: (item.status || 'active').toLowerCase() as any
     }
   },
 
