@@ -144,20 +144,7 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-card/40 border-border/50 backdrop-blur-md">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-xs font-medium text-muted-foreground uppercase">
-              Delivery Success
-            </CardTitle>
-            <TrendingUp className="h-4 w-4 text-purple-500" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">99.8%</div>
-            <p className="text-[10px] text-muted-foreground mt-1">
-              Average delivery SLA performance
-            </p>
-          </CardContent>
-        </Card>
+    
       </div>
 
       {/* Event Simulation Quick Actions */}
