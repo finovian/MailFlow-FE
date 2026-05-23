@@ -2,8 +2,8 @@
 
 import * as React from 'react'
 import { cn } from '@/lib/utils'
-import { Check, Loader2, X, AlertCircle, Info, HelpCircle } from 'lucide-react'
-import type { SimulationEvent } from '@/types/event'
+import { Check, Loader2, X, AlertCircle, HelpCircle } from 'lucide-react'
+import type { SimulationEvent, TimelineStepData } from '@/types/event'
 
 interface TimelineStepProps {
   title: string
@@ -11,11 +11,11 @@ interface TimelineStepProps {
   status: 'pending' | 'active' | 'completed' | 'failed' | 'skipped'
   timestamp?: string
   isLast?: boolean
-  details?: Record<string, any>
+  details?: Record<string, unknown>
   triggerName?: string
 }
 
-function ConditionDetails({ details, triggerName, status }: { details: Record<string, any>, triggerName?: string, status: string }) {
+function ConditionDetails({ details, triggerName, status }: { details: Record<string, unknown>, triggerName?: string, status: string }) {
   if (!details) return null
   
   return (
@@ -41,13 +41,13 @@ function ConditionDetails({ details, triggerName, status }: { details: Record<st
         <div className="space-y-1">
           <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-wider">Rule</p>
           <p className="text-[10.5px] font-mono font-medium text-foreground bg-background/50 p-1.5 rounded border border-border/20">
-            {details.field} <span className="text-primary mx-1">{details.operator}</span> {details.expected}
+            {String(details.field)} <span className="text-primary mx-1">{String(details.operator)}</span> {String(details.expected)}
           </p>
         </div>
         <div className="space-y-1">
           <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-wider">Received</p>
           <p className="text-[10.5px] font-mono font-medium text-foreground bg-background/50 p-1.5 rounded border border-border/20">
-            {details.actual}
+            {String(details.actual)}
           </p>
         </div>
       </div>
@@ -154,7 +154,7 @@ interface EventTimelineProps {
 }
 
 export function EventTimeline({ event }: EventTimelineProps) {
-  const { status, matchedTriggers, jobs, createdAt, timeline: apiTimeline, processingError } = event
+  const { status, createdAt, timeline: apiTimeline, processingError } = event
 
   // Safely parse processingError
   const parsedError = React.useMemo(() => {
@@ -167,7 +167,7 @@ export function EventTimeline({ event }: EventTimelineProps) {
     }
   }, [processingError])
 
-  const timelineSteps = parsedError?.timeline || apiTimeline
+  const timelineSteps: TimelineStepData[] = (parsedError?.timeline || apiTimeline || []) as TimelineStepData[]
 
   // If timeline exists, use it to render steps
   if (timelineSteps && timelineSteps.length > 0) {

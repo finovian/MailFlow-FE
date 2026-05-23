@@ -44,3 +44,7 @@ export interface SimulationEvent {
   createdAt: string
   updatedAt: string
 }
+
+export interface EventApiResponse extends Omit<SimulationEvent, 'jobs'> {
+  jobs?: EventJob[]
+}

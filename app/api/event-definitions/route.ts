@@ -1,12 +1,6 @@
 import { NextResponse } from 'next/server'
 
-/**
- * GET /api/event-definitions
- *
- * Returns the full dynamic event registry as JSON.
- * Frontend components can fetch this to avoid importing the registry directly
- * (useful for future dynamic / webhook-driven events loaded from a database).
- */
+
 export async function GET() {
   try {
     const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/'
@@ -18,11 +12,11 @@ export async function GET() {
     const res = await fetch(`${backendUrl}event-definitions`, {
       cache: 'no-store',
     })
-    
+
     if (!res.ok) {
       throw new Error(`Backend responded with status ${res.status}`)
     }
-    
+
     const body = await res.json()
     const definitions = body.data || body
 
