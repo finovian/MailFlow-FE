@@ -70,6 +70,8 @@ export const eventsService = {
       matchedTriggers: eventData.matchedTriggers || [],
       jobs,
       jobCount: jobs.length,
+      error: eventData.error,
+      processingError: eventData.processingError,
       createdAt: eventData.createdAt,
       updatedAt: eventData.updatedAt,
     }

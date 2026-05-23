@@ -19,6 +19,7 @@ import { extractVariables, cn } from '@/lib/utils'
 import VisualEditor from '../VisualEditor'
 import RawEditor from '../RawEditor'
 import TemplatePreview from '../TemplatePreview'
+import MockPayloadEditor from '../MockPayloadEditor'
 
 import { AIAssistPanel } from '@/features/ai/components/AIAssistPanel'
 import { PageHeader } from '@/components/shared/PageHeader'
@@ -42,7 +43,7 @@ export function TemplateEditor({ initialData }: TemplateEditorProps) {
 
 
   // Stores
-  const { mode, setMode, isAIPanelOpen, toggleAIPanel, detectedVariables, setDetectedVariables } =
+  const { mode, setMode, isAIPanelOpen, toggleAIPanel, detectedVariables, setDetectedVariables, eventType, setEventType } =
     useEditorStore()
   const { viewportMode, setViewportMode } = usePreviewStore()
 
@@ -293,6 +294,12 @@ export function TemplateEditor({ initialData }: TemplateEditorProps) {
           <div className="h-[520px] rounded-xl border border-border/50 bg-card overflow-hidden">
             <TemplatePreview htmlContent={htmlContent} />
           </div>
+
+          <MockPayloadEditor 
+            variables={detectedVariables}
+            eventType={eventType}
+            onEventTypeChange={setEventType}
+          />
         </div>
 
         {/* Collapsible AI Co-Pilot Column */}

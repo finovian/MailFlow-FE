@@ -284,8 +284,8 @@ export function TriggerList() {
                   <Edit className="mr-2 size-4" />
                   Edit Rules
                 </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem
+                {/* <DropdownMenuSeparator /> */}
+                {/* <DropdownMenuItem
                   variant="destructive"
                   onClick={() => {
                     setDeleteId(row.id)
@@ -295,7 +295,7 @@ export function TriggerList() {
                 >
                   <Trash2 className="mr-2 size-4" />
                   Delete
-                </DropdownMenuItem>
+                </DropdownMenuItem> */}
               </DropdownMenuContent>
             </DropdownMenu>
           </div>

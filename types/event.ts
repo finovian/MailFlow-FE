@@ -22,6 +22,14 @@ export interface MatchedTrigger {
   reason?: string
 }
 
+export interface TimelineStepData {
+  step: string
+  status: 'SUCCESS' | 'FAILED' | 'SKIPPED' | 'PENDING'
+  message: string
+  triggerName?: string
+  details?: Record<string, unknown>
+}
+
 export interface SimulationEvent {
   id: string
   eventType: string
@@ -30,6 +38,9 @@ export interface SimulationEvent {
   matchedTriggers: MatchedTrigger[]
   jobs: EventJob[]
   jobCount: number
+  timeline?: TimelineStepData[]
+  error?: string | null
+  processingError?: string | null
   createdAt: string
   updatedAt: string
 }

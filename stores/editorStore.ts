@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { type EventType } from '@/constants/eventTypes'
 
 interface EditorStore {
   mode: 'visual' | 'raw'
@@ -7,6 +8,8 @@ interface EditorStore {
   toggleAIPanel: () => void
   detectedVariables: string[]
   setDetectedVariables: (vars: string[]) => void
+  eventType: EventType
+  setEventType: (type: EventType) => void
 }
 
 export const useEditorStore = create<EditorStore>((set) => ({
@@ -16,4 +19,6 @@ export const useEditorStore = create<EditorStore>((set) => ({
   toggleAIPanel: () => set((state) => ({ isAIPanelOpen: !state.isAIPanelOpen })),
   detectedVariables: [],
   setDetectedVariables: (vars) => set({ detectedVariables: vars }),
+  eventType: 'user.created',
+  setEventType: (eventType) => set({ eventType }),
 }))

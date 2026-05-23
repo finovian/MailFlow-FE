@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { testSendSchema, type TestSendFormValues } from '@/schemas/testSend.schema'
 import { useTestSend } from '@/features/templates/hooks/useTemplates'
+import { usePreviewStore } from '@/stores/previewStore'
 import {
   Dialog,
   DialogContent,
@@ -35,20 +36,15 @@ export function TestSendDialog({
   variables,
 }: TestSendDialogProps) {
   const { mutate: testSend, isPending } = useTestSend()
+  const { mockPayload } = usePreviewStore()
   
-  const defaultPayload = React.useMemo(() => {
-    const payload: Record<string, string> = {}
-    variables.forEach((variable) => {
-      payload[variable] = ''
-    })
-    return payload
-  }, [variables])
-
   const [payloadText, setPayloadText] = React.useState('')
 
   React.useEffect(() => {
-    setPayloadText(JSON.stringify(defaultPayload, null, 2))
-  }, [defaultPayload, open])
+    if (open) {
+      setPayloadText(JSON.stringify(mockPayload, null, 2))
+    }
+  }, [mockPayload, open])
 
   const {
     register,
@@ -70,8 +66,8 @@ export function TestSendDialog({
         parsedPayload = JSON.parse(payloadText)
       }
     } catch {
-      // If parsing fails, fall back to empty or simple key-value evaluation
-      parsedPayload = defaultPayload
+      // If parsing fails, fall back to current mockPayload from store
+      parsedPayload = mockPayload
     }
 
     testSend(

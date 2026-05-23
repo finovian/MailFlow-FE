@@ -7,8 +7,9 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { EVENT_TYPES, getFieldsForEventType, type EventType } from '@/constants/eventTypes'
-import { AlertCircle, CheckCircle, Info, Lightbulb } from 'lucide-react'
+import { EVENT_TYPES, getFieldsForEventType, getMockValueForField, type EventType } from '@/constants/eventTypes'
+import { AlertCircle, CheckCircle, Info, Lightbulb, Wand2 } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
 interface MockPayloadEditorProps {
   variables: string[]
@@ -99,12 +100,39 @@ export default function MockPayloadEditor({
     }
   }
 
+  const fillSampleData = () => {
+    const fields = getFieldsForEventType(eventType)
+    const newPayload = { ...mockPayload }
+    
+    variables.forEach(v => {
+      const field = fields.find(f => f.name === v)
+      if (field) {
+        newPayload[v] = getMockValueForField(field)
+      } else {
+        newPayload[v] = `[${v}]`
+      }
+    })
+    
+    setMockPayload(newPayload)
+  }
+
   return (
     <div className="flex flex-col gap-4 rounded-lg border border-border/50 bg-card/25 p-4">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-b border-border/50 pb-3">
-        <h3 className="text-sm font-semibold tracking-tight text-foreground">
-          Variable Validation
-        </h3>
+        <div className="flex items-center gap-2">
+          <h3 className="text-sm font-semibold tracking-tight text-foreground">
+            Variable Validation
+          </h3>
+          <Button 
+            variant="ghost" 
+            size="icon-xs" 
+            className="size-6 text-purple-500 hover:text-purple-600 hover:bg-purple-50"
+            onClick={fillSampleData}
+            title="Fill with sample data"
+          >
+            <Wand2 className="size-3.5" />
+          </Button>
+        </div>
         <div className="flex items-center gap-2">
           <span className="text-[10px] font-medium text-muted-foreground uppercase">Event:</span>
           <Select

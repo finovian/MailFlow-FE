@@ -2,6 +2,8 @@
 
 import * as React from 'react'
 import { usePreviewStore } from '@/stores/previewStore'
+import { useEditorStore } from '@/stores/editorStore'
+import { getFieldsForEventType } from '@/constants/eventTypes'
 import { cn } from '@/lib/utils'
 
 interface TemplatePreviewProps {
@@ -10,6 +12,7 @@ interface TemplatePreviewProps {
 
 export default function TemplatePreview({ htmlContent }: TemplatePreviewProps) {
   const { mockPayload, viewportMode } = usePreviewStore()
+  const { eventType } = useEditorStore()
 
   // Replace placeholders with mock values
   const renderedHtml = React.useMemo(() => {
@@ -20,10 +23,17 @@ export default function TemplatePreview({ htmlContent }: TemplatePreviewProps) {
       rendered = rendered.replace(regex, String(value ?? ''))
     })
 
+    // Get field info for the current event type to show types in placeholders
+    const fields = getFieldsForEventType(eventType)
+
     // Clean up any remaining unpopulated braces with placeholder styles
     rendered = rendered.replace(
       /\{\{\s*([a-zA-Z0-9_.]+)\s*\}\}/g,
-      '<span style="background-color: rgba(245, 158, 11, 0.2); color: #d97706; padding: 2px 4px; border-radius: 4px; font-size: 0.9em; font-family: monospace;">{{$1}}</span>'
+      (match, varName) => {
+        const field = fields.find(f => f.name === varName)
+        const typeInfo = field ? `: ${field.type}` : ''
+        return `<span style="background-color: rgba(245, 158, 11, 0.2); color: #d97706; padding: 2px 4px; border-radius: 4px; font-size: 0.9em; font-family: monospace;">{{${varName}${typeInfo}}}</span>`
+      }
     )
 
     // Check if the htmlContent already has a full HTML structure

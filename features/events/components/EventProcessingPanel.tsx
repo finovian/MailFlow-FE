@@ -6,7 +6,8 @@ import { EventTimeline } from './EventTimeline'
 import { EventJobList } from './EventJobList'
 import { Button } from '@/components/ui/button'
 import { StatusBadge } from '@/components/shared/StatusBadge'
-import { Loader2, ArrowLeft, RefreshCw, Calendar, FileJson, Cpu } from 'lucide-react'
+import { Loader2, ArrowLeft, RefreshCw, Calendar, FileJson, Cpu, AlertTriangle } from 'lucide-react'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { formatDate } from '@/lib/utils'
 
 interface EventProcessingPanelProps {
@@ -104,6 +105,17 @@ export function EventProcessingPanel({ eventId, onBack }: EventProcessingPanelPr
           </Button>
         </div>
       </div>
+
+      {/* Processing Error */}
+      {event.error && (
+        <Alert variant="destructive" className="bg-destructive/5 border-destructive/20 py-3">
+          <AlertTriangle className="size-4" />
+          <AlertTitle className="text-xs font-bold">Processing Error</AlertTitle>
+          <AlertDescription className="text-[11px] font-medium mt-0.5 opacity-90">
+            {event.error}
+          </AlertDescription>
+        </Alert>
+      )}
 
       {/* Payload Display */}
       {showPayload && (

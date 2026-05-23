@@ -127,6 +127,25 @@ export function getFieldsForEventType(eventType: EventType): readonly EventField
   return match?.fields ?? []
 }
 
+/**
+ * Get a sample mock value for a given field type.
+ */
+export function getMockValueForField(field: EventField): string | number | boolean {
+  switch (field.type) {
+    case 'number':
+      return 123
+    case 'boolean':
+      return true
+    case 'date':
+      return new Date().toISOString()
+    case 'string':
+    default:
+      if (field.name.includes('email')) return 'john@example.com'
+      if (field.name.includes('name')) return 'John Doe'
+      return `Sample ${field.label}`
+  }
+}
+
 /** A group of event types that share the same prefix, for combobox display. */
 export interface EventTypeGroup {
   readonly prefix: string
