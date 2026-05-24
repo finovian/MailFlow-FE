@@ -143,7 +143,7 @@ npm install
 Create:
 
 ```txt
-.env.local
+.env
 ```
 
 Copy values from:
