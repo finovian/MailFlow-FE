@@ -10,7 +10,6 @@ import type { PaginatedResponse } from '@/types/api'
 
 export const templatesService = {
   getAll: async (params?: TemplateListParams) => {
-    // Translate statuses to uppercase for the backend
     const apiParams = params ? {
       ...params,
       status: params.status && params.status !== 'all' ? params.status.toUpperCase() : undefined

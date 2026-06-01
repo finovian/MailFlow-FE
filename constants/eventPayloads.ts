@@ -24,6 +24,7 @@ export const EVENT_PAYLOAD_EXAMPLES: Record<EventType, Record<string, unknown>> 
   'event.completed': {
     event: {
       name: 'Q3 Product Strategy Summit',
+      organizerEmail: 'john@finovian.com',
       date: new Date().toISOString(),
       attendees: 42,
     },
@@ -31,6 +32,7 @@ export const EVENT_PAYLOAD_EXAMPLES: Record<EventType, Record<string, unknown>> 
   'event.cancelled': {
     event: {
       name: 'Weekly Standup',
+      organizerEmail: 'john@finovian.com',
       date: new Date().toISOString(),
       reason: 'Conflict with client presentation',
     },
@@ -38,6 +40,7 @@ export const EVENT_PAYLOAD_EXAMPLES: Record<EventType, Record<string, unknown>> 
   'event.reminder': {
     event: {
       name: 'Developer Automation Demo',
+      organizerEmail: 'john@finovian.com',
       date: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toISOString(),
       daysUntil: 2,
     },
