@@ -4,11 +4,11 @@ A modern event-driven email automation platform frontend built with Next.js and 
 
 This platform allows non-technical teams to manage:
 
-* Reusable email templates
-* Trigger-based email automation
-* Conditional email logic
-* Event-driven workflows
-* AI-assisted content generation
+- Reusable email templates
+- Trigger-based email automation
+- Conditional email logic
+- Event-driven workflows
+- AI-assisted content generation
 
 The goal is to make email automation configurable instead of hardcoded.
 
@@ -50,11 +50,11 @@ Example:
 
 Triggers support:
 
-* Event selection
-* Conditional rules
-* Recipient mapping
-* Send once logic
-* Cooldown controls
+- Event selection
+- Conditional rules
+- Recipient mapping
+- Send once logic
+- Cooldown controls
 
 ### Event-Driven Processing
 
@@ -72,10 +72,10 @@ The system evaluates triggers and decides whether an email should be sent.
 
 Built-in AI assistance helps users:
 
-* Generate email body content
-* Improve subject lines
-* Validate template variables
-* Improve writing quality
+- Generate email body content
+- Improve subject lines
+- Validate template variables
+- Improve writing quality
 
 ---
 
@@ -111,15 +111,15 @@ Email Sent
 
 ## Tech Stack
 
-* Next.js
-* React
-* TypeScript
-* Tailwind CSS
-* Shadcn UI
-* TanStack Query
-* Zustand
-* Supabase Auth
-* AI Model Integration
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- Shadcn UI
+- TanStack Query
+- Zustand
+- Supabase Auth
+- AI Model Integration
 
 ---
 
@@ -194,12 +194,12 @@ https://github.com/finovian/MailFlow-be
 
 ## What I Focused On
 
-* Simple but scalable trigger architecture
-* Reusable template system
-* Event-driven automation flow
-* Explainable automation execution
-* AI-assisted productivity for non-technical users
-* Clean UX for marketers and future engineers
+- Simple but scalable trigger architecture
+- Reusable template system
+- Event-driven automation flow
+- Explainable automation execution
+- AI-assisted productivity for non-technical users
+- Clean UX for marketers and future engineers
 
 ---
 
@@ -207,12 +207,12 @@ https://github.com/finovian/MailFlow-be
 
 If extended further:
 
-* Multi-tenant workspaces
-* API-key based external integrations
-* Better automation analytics
-* Stronger deduplication controls
-* Template versioning
-* Advanced delivery observability
+- Multi-tenant workspaces
+- API-key based external integrations
+- Better automation analytics
+- Stronger deduplication controls
+- Template versioning
+- Advanced delivery observability
 
 ---
 
@@ -220,6 +220,6 @@ If extended further:
 
 This project was built as part of a Senior Software Engineer technical assessment and intentionally prioritizes:
 
-* working end-to-end functionality
-* explainable automation flow
-* scalable foundations over excessive complexity
+- working end-to-end functionality
+- explainable automation flow
+- scalable foundations over excessive complexity

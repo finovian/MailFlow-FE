@@ -1,17 +1,17 @@
-'use client'
+"use client";
 
-import { Card, CardContent } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Inbox, type LucideIcon } from 'lucide-react'
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Inbox, type LucideIcon } from "lucide-react";
 
 interface EmptyStateProps {
-  icon?: LucideIcon
-  title: string
-  description?: string
+  icon?: LucideIcon;
+  title: string;
+  description?: string;
   action?: {
-    label: string
-    onClick: () => void
-  }
+    label: string;
+    onClick: () => void;
+  };
 }
 
 export function EmptyState({
@@ -39,5 +39,5 @@ export function EmptyState({
         )}
       </CardContent>
     </Card>
-  )
+  );
 }

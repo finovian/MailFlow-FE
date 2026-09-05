@@ -1,14 +1,9 @@
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableRow,
-} from '@/components/ui/table'
-import { Skeleton } from '@/components/ui/skeleton'
+import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface DataTableSkeletonProps {
-  columnCount: number
-  rowCount?: number
+  columnCount: number;
+  rowCount?: number;
 }
 
 export function DataTableSkeleton({
@@ -29,5 +24,5 @@ export function DataTableSkeleton({
         ))}
       </TableBody>
     </Table>
-  )
+  );
 }

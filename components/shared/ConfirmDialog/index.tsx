@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import {
   AlertDialog,
@@ -9,19 +9,19 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from '@/components/ui/alert-dialog'
-import { Loader2 } from 'lucide-react'
+} from "@/components/ui/alert-dialog";
+import { Loader2 } from "lucide-react";
 
 interface ConfirmDialogProps {
-  open: boolean
-  onOpenChange: (open: boolean) => void
-  title: string
-  description: string
-  confirmLabel?: string
-  cancelLabel?: string
-  onConfirm: () => void
-  variant?: 'default' | 'destructive'
-  isLoading?: boolean
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  title: string;
+  description: string;
+  confirmLabel?: string;
+  cancelLabel?: string;
+  onConfirm: () => void;
+  variant?: "default" | "destructive";
+  isLoading?: boolean;
 }
 
 export function ConfirmDialog({
@@ -29,10 +29,10 @@ export function ConfirmDialog({
   onOpenChange,
   title,
   description,
-  confirmLabel = 'Confirm',
-  cancelLabel = 'Cancel',
+  confirmLabel = "Confirm",
+  cancelLabel = "Cancel",
   onConfirm,
-  variant = 'destructive',
+  variant = "destructive",
   isLoading = false,
 }: ConfirmDialogProps) {
   return (
@@ -49,8 +49,8 @@ export function ConfirmDialog({
           <AlertDialogAction
             variant={variant}
             onClick={(e) => {
-              e.preventDefault()
-              onConfirm()
+              e.preventDefault();
+              onConfirm();
             }}
             disabled={isLoading}
           >
@@ -60,5 +60,5 @@ export function ConfirmDialog({
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
-  )
+  );
 }

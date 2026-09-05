@@ -1,19 +1,23 @@
-'use client'
+"use client";
 
-import * as React from 'react'
-import Editor from '@monaco-editor/react'
-import { Loader2 } from 'lucide-react'
+import * as React from "react";
+import Editor from "@monaco-editor/react";
+import { Loader2 } from "lucide-react";
 
 interface RawEditorProps {
-  value: string
-  onChange: (value: string) => void
-  disabled?: boolean
+  value: string;
+  onChange: (value: string) => void;
+  disabled?: boolean;
 }
 
-export default function RawEditor({ value, onChange, disabled }: RawEditorProps) {
+export default function RawEditor({
+  value,
+  onChange,
+  disabled,
+}: RawEditorProps) {
   const handleEditorChange = (val: string | undefined) => {
-    onChange(val ?? '')
-  }
+    onChange(val ?? "");
+  };
 
   return (
     <div className="relative rounded-lg border border-border/50 bg-black/95 overflow-hidden">
@@ -25,13 +29,14 @@ export default function RawEditor({ value, onChange, disabled }: RawEditorProps)
         onChange={handleEditorChange}
         options={{
           minimap: { enabled: false },
-          fontSize: 13,
-          lineNumbers: 'on',
+          fontSize: 14,
+          fontFamily: "var(--font-ubuntu), Arial, sans-serif",
+          lineNumbers: "on",
           scrollBeyondLastLine: false,
           readOnly: disabled,
           padding: { top: 12 },
           automaticLayout: true,
-          wordWrap: 'on',
+          wordWrap: "on",
         }}
         loading={
           <div className="flex h-[350px] items-center justify-center bg-black/95 text-muted-foreground">
@@ -41,5 +46,5 @@ export default function RawEditor({ value, onChange, disabled }: RawEditorProps)
         }
       />
     </div>
-  )
+  );
 }

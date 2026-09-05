@@ -1,9 +1,8 @@
-
-import { z } from 'zod'
+import { z } from "zod";
 
 export const testSendSchema = z.object({
-  to: z.string().email('A valid email address is required'),
+  to: z.string().email("A valid email address is required"),
   payload: z.record(z.string(), z.unknown()).optional(),
-})
+});
 
-export type TestSendFormValues = z.infer<typeof testSendSchema>
+export type TestSendFormValues = z.infer<typeof testSendSchema>;

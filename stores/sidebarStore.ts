@@ -1,21 +1,22 @@
-import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 interface SidebarState {
-  isCollapsed: boolean
-  toggleSidebar: () => void
-  setCollapsed: (collapsed: boolean) => void
+  isCollapsed: boolean;
+  toggleSidebar: () => void;
+  setCollapsed: (collapsed: boolean) => void;
 }
 
 export const useSidebarStore = create<SidebarState>()(
   persist(
     (set) => ({
       isCollapsed: false,
-      toggleSidebar: () => set((state) => ({ isCollapsed: !state.isCollapsed })),
+      toggleSidebar: () =>
+        set((state) => ({ isCollapsed: !state.isCollapsed })),
       setCollapsed: (collapsed: boolean) => set({ isCollapsed: collapsed }),
     }),
     {
-      name: 'mailflow-sidebar',
-    }
-  )
-)
+      name: "mailflow-sidebar",
+    },
+  ),
+);

@@ -1,50 +1,51 @@
-export type EventStatus = 'PENDING' | 'PROCESSING' | 'COMPLETED' | 'FAILED'
-export type JobStatus = 'PENDING' | 'PROCESSING' | 'SENT' | 'FAILED' | 'RETRYING'
+export type EventStatus = "PENDING" | "PROCESSING" | "COMPLETED" | "FAILED";
+export type JobStatus =
+  "PENDING" | "PROCESSING" | "SENT" | "FAILED" | "RETRYING";
 
 export interface EventJob {
-  id: string
-  recipientEmail: string
-  status: JobStatus
-  retryCount: number
-  processedAt: string | null
-  templateName: string
-  triggerName: string
-  lastError?: string
-  provider?: string
-  providerMessageId?: string
-  sentAt?: string
+  id: string;
+  recipientEmail: string;
+  status: JobStatus;
+  retryCount: number;
+  processedAt: string | null;
+  templateName: string;
+  triggerName: string;
+  lastError?: string;
+  provider?: string;
+  providerMessageId?: string;
+  sentAt?: string;
 }
 
 export interface MatchedTrigger {
-  id: string
-  name: string
-  matched: boolean
-  reason?: string
+  id: string;
+  name: string;
+  matched: boolean;
+  reason?: string;
 }
 
 export interface TimelineStepData {
-  step: string
-  status: 'SUCCESS' | 'FAILED' | 'SKIPPED' | 'PENDING'
-  message: string
-  triggerName?: string
-  details?: Record<string, unknown>
+  step: string;
+  status: "SUCCESS" | "FAILED" | "SKIPPED" | "PENDING";
+  message: string;
+  triggerName?: string;
+  details?: Record<string, unknown>;
 }
 
 export interface SimulationEvent {
-  id: string
-  eventType: string
-  status: EventStatus
-  payload: Record<string, unknown>
-  matchedTriggers: MatchedTrigger[]
-  jobs: EventJob[]
-  jobCount: number
-  timeline?: TimelineStepData[]
-  error?: string | null
-  processingError?: string | null
-  createdAt: string
-  updatedAt: string
+  id: string;
+  eventType: string;
+  status: EventStatus;
+  payload: Record<string, unknown>;
+  matchedTriggers: MatchedTrigger[];
+  jobs: EventJob[];
+  jobCount: number;
+  timeline?: TimelineStepData[];
+  error?: string | null;
+  processingError?: string | null;
+  createdAt: string;
+  updatedAt: string;
 }
 
-export interface EventApiResponse extends Omit<SimulationEvent, 'jobs'> {
-  jobs?: EventJob[]
+export interface EventApiResponse extends Omit<SimulationEvent, "jobs"> {
+  jobs?: EventJob[];
 }

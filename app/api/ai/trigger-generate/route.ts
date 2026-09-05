@@ -1,26 +1,29 @@
-import { NextResponse } from 'next/server'
-import { openai } from '@/lib/openai'
+import { NextResponse } from "next/server";
+import { ai } from "@/lib/ai";
 
 export async function POST(req: Request) {
   try {
-    const { prompt, events, templates } = await req.json()
+    const { prompt, events, templates } = await req.json();
 
     if (!prompt) {
-      return NextResponse.json({ error: 'Prompt is required' }, { status: 400 })
+      return NextResponse.json(
+        { error: "Prompt is required" },
+        { status: 400 },
+      );
     }
 
     const eventsFormatted = (events || []).map((e: any) => ({
       type: e.type,
       label: e.label,
       description: e.description,
-      fields: e.fields.map((f: any) => `${f.name} (${f.type})`)
-    }))
+      fields: e.fields.map((f: any) => `${f.name} (${f.type})`),
+    }));
 
     const templatesFormatted = (templates || []).map((t: any) => ({
       id: t.id,
       name: t.name,
-      subject: t.subject
-    }))
+      subject: t.subject,
+    }));
 
     const systemPrompt = `You are an expert system builder for an email automation platform.
 Your job is to translate a user's natural language request into a valid trigger configuration object.
@@ -54,24 +57,26 @@ Return ONLY a JSON object with:
 - 'conditions': ConditionGroup (logical conditions, empty rules list if no conditions are requested)
 - 'cooldownDays': number
 - 'sendOnce': boolean
-`
+`;
 
-    const response = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
+    const response = await ai.chat.completions.create({
       messages: [
         { role: "system", content: systemPrompt },
-        { role: "user", content: prompt }
+        { role: "user", content: prompt },
       ],
-      response_format: { type: "json_object" }
-    })
+      responseFormat: { type: "json_object" },
+    });
 
-    const content = response.choices[0]?.message?.content
-    if (!content) throw new Error("No content generated")
+    const content = response.choices[0]?.message?.content;
+    if (!content) throw new Error("No content generated");
 
-    const parsed = JSON.parse(content)
-    return NextResponse.json(parsed)
+    const parsed = JSON.parse(content);
+    return NextResponse.json(parsed);
   } catch (error: any) {
-    console.error("OpenAI Error:", error)
-    return NextResponse.json({ error: error.message || 'Failed to generate trigger' }, { status: 500 })
+    console.error("AI Error:", error);
+    return NextResponse.json(
+      { error: error.message || "Failed to generate trigger" },
+      { status: 500 },
+    );
   }
 }

@@ -1,6 +1,6 @@
-'use client'
+"use client";
 
-import * as React from 'react'
+import * as React from "react";
 import {
   Dialog,
   DialogContent,
@@ -8,34 +8,47 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
-import { StatusBadge } from '@/components/shared/StatusBadge'
-import { useRetryLog } from '@/features/logs/hooks/useLogs'
-import { formatDate } from '@/lib/utils'
-import { AlertTriangle, CheckCircle, Clock, RotateCcw, User, Zap, Mail, Loader2 } from 'lucide-react'
-import type { SendLog } from '@/types/log'
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { StatusBadge } from "@/components/shared/StatusBadge";
+import { useRetryLog } from "@/features/logs/hooks/useLogs";
+import { formatDate } from "@/lib/utils";
+import {
+  AlertTriangle,
+  CheckCircle,
+  Clock,
+  RotateCcw,
+  User,
+  Zap,
+  Mail,
+  Loader2,
+} from "lucide-react";
+import type { SendLog } from "@/types/log";
 
 interface LogDetailDialogProps {
-  log: SendLog | null
-  open: boolean
-  onOpenChange: (open: boolean) => void
+  log: SendLog | null;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
 }
 
-export function LogDetailDialog({ log, open, onOpenChange }: LogDetailDialogProps) {
-  const { mutate: retryLog, isPending: isRetrying } = useRetryLog()
+export function LogDetailDialog({
+  log,
+  open,
+  onOpenChange,
+}: LogDetailDialogProps) {
+  const { mutate: retryLog, isPending: isRetrying } = useRetryLog();
 
-  if (!log) return null
+  if (!log) return null;
 
   const handleRetry = () => {
     retryLog(log.id, {
       onSuccess: () => {
-        onOpenChange(false)
+        onOpenChange(false);
       },
-    })
-  }
+    });
+  };
 
-  const isFailed = log.status === 'failed'
+  const isFailed = log.status === "failed";
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -43,9 +56,14 @@ export function LogDetailDialog({ log, open, onOpenChange }: LogDetailDialogProp
         <DialogHeader>
           <div className="flex items-center justify-between border-b border-border/50 pb-3">
             <div>
-              <DialogTitle className="text-base font-semibold">Log Detail</DialogTitle>
+              <DialogTitle className="text-base font-semibold">
+                Log Detail
+              </DialogTitle>
               <DialogDescription className="text-xs">
-                Audit trail for ID: <code className="font-mono bg-muted px-1 rounded">{log.id}</code>
+                Audit trail for ID:{" "}
+                <code className="font-mono bg-muted px-1 rounded">
+                  {log.id}
+                </code>
               </DialogDescription>
             </div>
             <StatusBadge status={log.status} />
@@ -59,7 +77,7 @@ export function LogDetailDialog({ log, open, onOpenChange }: LogDetailDialogProp
               <User className="size-4 text-primary" />
             </div>
             <div>
-              <p className="text-[10px] text-muted-foreground">Recipient Email</p>
+              <p className="text-xs text-muted-foreground">Recipient Email</p>
               <p className="font-medium text-foreground">{log.recipient}</p>
             </div>
           </div>
@@ -67,31 +85,37 @@ export function LogDetailDialog({ log, open, onOpenChange }: LogDetailDialogProp
           {/* Configuration Grid */}
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1">
-              <span className="text-[10px] text-muted-foreground flex items-center gap-1">
+              <span className="text-xs text-muted-foreground flex items-center gap-1">
                 <Zap className="size-3" /> Trigger Rule
               </span>
-              <p className="font-medium text-foreground">{log.triggerName || 'Ad-hoc'}</p>
+              <p className="font-medium text-foreground">
+                {log.triggerName || "Ad-hoc"}
+              </p>
             </div>
 
             <div className="space-y-1">
-              <span className="text-[10px] text-muted-foreground flex items-center gap-1">
+              <span className="text-xs text-muted-foreground flex items-center gap-1">
                 <Mail className="size-3" /> Targeted Template
               </span>
               <p className="font-medium text-foreground">{log.templateName}</p>
             </div>
 
             <div className="space-y-1">
-              <span className="text-[10px] text-muted-foreground flex items-center gap-1">
+              <span className="text-xs text-muted-foreground flex items-center gap-1">
                 <Clock className="size-3" /> Event Type
               </span>
-              <p className="font-mono text-[10px] text-foreground">{log.eventType || 'N/A'}</p>
+              <p className="font-mono text-xs text-foreground">
+                {log.eventType || "N/A"}
+              </p>
             </div>
 
             <div className="space-y-1">
-              <span className="text-[10px] text-muted-foreground flex items-center gap-1">
+              <span className="text-xs text-muted-foreground flex items-center gap-1">
                 <Clock className="size-3" /> Timestamp
               </span>
-              <p className="text-foreground">{formatDate(log.sentAt || log.createdAt)}</p>
+              <p className="text-foreground">
+                {formatDate(log.sentAt || log.createdAt)}
+              </p>
             </div>
           </div>
 
@@ -101,17 +125,21 @@ export function LogDetailDialog({ log, open, onOpenChange }: LogDetailDialogProp
               <AlertTriangle className="size-4 text-destructive shrink-0 mt-0.5" />
               <div>
                 <p className="font-bold text-destructive">Delivery Failed</p>
-                <p className="text-muted-foreground mt-0.5">{log.errorReason}</p>
+                <p className="text-muted-foreground mt-0.5">
+                  {log.errorReason}
+                </p>
               </div>
             </div>
           )}
 
           {/* Success details */}
-          {log.status === 'sent' && (
+          {log.status === "sent" && (
             <div className="rounded-lg border border-green-500/20 bg-green-500/10 p-3 flex gap-3">
               <CheckCircle className="size-4 text-green-600 dark:text-green-500 shrink-0 mt-0.5" />
               <div>
-                <p className="font-bold text-green-600 dark:text-green-500">Delivered Successfully</p>
+                <p className="font-bold text-green-600 dark:text-green-500">
+                  Delivered Successfully
+                </p>
                 <p className="text-muted-foreground mt-0.5">
                   The message was handed off to the SMTP server.
                 </p>
@@ -147,5 +175,5 @@ export function LogDetailDialog({ log, open, onOpenChange }: LogDetailDialogProp
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

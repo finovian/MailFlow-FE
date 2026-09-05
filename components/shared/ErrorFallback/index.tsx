@@ -1,12 +1,12 @@
-'use client'
+"use client";
 
-import { Card, CardContent } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { AlertTriangle, RefreshCw } from 'lucide-react'
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { AlertTriangle, RefreshCw } from "lucide-react";
 
 interface ErrorFallbackProps {
-  error: Error & { digest?: string }
-  reset: () => void
+  error: Error & { digest?: string };
+  reset: () => void;
 }
 
 export function ErrorFallback({ error, reset }: ErrorFallbackProps) {
@@ -20,7 +20,7 @@ export function ErrorFallback({ error, reset }: ErrorFallbackProps) {
           Something went wrong
         </h3>
         <p className="mb-6 max-w-sm text-sm text-muted-foreground">
-          {error.message || 'An unexpected error occurred. Please try again.'}
+          {error.message || "An unexpected error occurred. Please try again."}
         </p>
         {error.digest && (
           <p className="mb-4 font-mono text-xs text-muted-foreground/60">
@@ -33,5 +33,5 @@ export function ErrorFallback({ error, reset }: ErrorFallbackProps) {
         </Button>
       </CardContent>
     </Card>
-  )
+  );
 }
