@@ -9,23 +9,23 @@
 
 export const QUERY_KEYS = {
   templates: {
-    all: ['templates'] as const,
-    list: (params?: any) => ['templates', 'list', params] as const,
-    detail: (id: string) => ['templates', 'detail', id] as const,
+    all: ["templates"] as const,
+    list: (params?: any) => ["templates", "list", params] as const,
+    detail: (id: string) => ["templates", "detail", id] as const,
   },
   triggers: {
-    all: ['triggers'] as const,
-    list: (params?: any) => ['triggers', 'list', params] as const,
-    detail: (id: string) => ['triggers', 'detail', id] as const,
+    all: ["triggers"] as const,
+    list: (params?: any) => ["triggers", "list", params] as const,
+    detail: (id: string) => ["triggers", "detail", id] as const,
   },
   logs: {
-    all: ['logs'] as const,
-    list: (params?: any) => ['logs', 'list', params] as const,
+    all: ["logs"] as const,
+    list: (params?: any) => ["logs", "list", params] as const,
   },
   events: {
-    all: ['events'] as const,
-    list: (params?: any) => ['events', 'list', params] as const,
-    detail: (id: string) => ['events', 'detail', id] as const,
-    definitions: ['events', 'definitions'] as const,
+    all: ["events"] as const,
+    list: (params?: any) => ["events", "list", params] as const,
+    detail: (id: string) => ["events", "detail", id] as const,
+    definitions: ["events", "definitions"] as const,
   },
-} as const
+} as const;

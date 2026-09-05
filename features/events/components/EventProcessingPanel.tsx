@@ -1,31 +1,50 @@
-'use client'
+"use client";
 
-import * as React from 'react'
-import { useEventDetail } from '@/features/events/hooks/useEvents'
-import { EventTimeline } from './EventTimeline'
-import { EventJobList } from './EventJobList'
-import { Button } from '@/components/ui/button'
-import { StatusBadge } from '@/components/shared/StatusBadge'
-import { Loader2, ArrowLeft, RefreshCw, Calendar, FileJson, Cpu, AlertTriangle } from 'lucide-react'
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
-import { formatDate } from '@/lib/utils'
+import * as React from "react";
+import { useEventDetail } from "@/features/events/hooks/useEvents";
+import { EventTimeline } from "./EventTimeline";
+import { EventJobList } from "./EventJobList";
+import { Button } from "@/components/ui/button";
+import { StatusBadge } from "@/components/shared/StatusBadge";
+import {
+  Loader2,
+  ArrowLeft,
+  RefreshCw,
+  Calendar,
+  FileJson,
+  Cpu,
+  AlertTriangle,
+} from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { formatDate } from "@/lib/utils";
 
 interface EventProcessingPanelProps {
-  eventId: string
-  onBack?: () => void
+  eventId: string;
+  onBack?: () => void;
 }
 
-export function EventProcessingPanel({ eventId, onBack }: EventProcessingPanelProps) {
-  const { data: event, isLoading, error, refetch, isFetching } = useEventDetail(eventId, true)
-  const [showPayload, setShowPayload] = React.useState(false)
+export function EventProcessingPanel({
+  eventId,
+  onBack,
+}: EventProcessingPanelProps) {
+  const {
+    data: event,
+    isLoading,
+    error,
+    refetch,
+    isFetching,
+  } = useEventDetail(eventId, true);
+  const [showPayload, setShowPayload] = React.useState(false);
 
   if (isLoading) {
     return (
       <div className="flex h-96 flex-col items-center justify-center gap-3">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
-        <span className="text-xs text-muted-foreground">Initializing simulation pipeline...</span>
+        <span className="text-xs text-muted-foreground">
+          Initializing simulation pipeline...
+        </span>
       </div>
-    )
+    );
   }
 
   if (error || !event) {
@@ -35,19 +54,23 @@ export function EventProcessingPanel({ eventId, onBack }: EventProcessingPanelPr
           <ArrowLeft className="size-6" />
         </div>
         <div className="space-y-1">
-          <p className="text-sm font-semibold text-foreground">Pipeline Error</p>
+          <p className="text-sm font-semibold text-foreground">
+            Pipeline Error
+          </p>
           <p className="text-xs text-muted-foreground max-w-sm">
-            {error instanceof Error ? error.message : 'The requested simulation run could not be retrieved.'}
+            {error instanceof Error
+              ? error.message
+              : "The requested simulation run could not be retrieved."}
           </p>
         </div>
         <Button onClick={onBack} variant="outline" size="sm">
           Return to Events
         </Button>
       </div>
-    )
+    );
   }
 
-  const isRunning = event.status === 'PENDING' || event.status === 'PROCESSING'
+  const isRunning = event.status === "PENDING" || event.status === "PROCESSING";
 
   return (
     <div className="space-y-6">
@@ -67,7 +90,9 @@ export function EventProcessingPanel({ eventId, onBack }: EventProcessingPanelPr
           )}
           <div className="min-w-0 flex-1 space-y-1">
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-[10px] font-bold text-primary uppercase tracking-widest bg-primary/5 px-1.5 py-0.5 rounded border border-primary/10">RUN</span>
+              <span className="text-xs font-bold text-primary uppercase tracking-widest bg-primary/5 px-1.5 py-0.5 rounded border border-primary/10">
+                RUN
+              </span>
               <span className="font-mono text-xs font-bold text-foreground truncate">
                 {event.id}
               </span>
@@ -75,7 +100,8 @@ export function EventProcessingPanel({ eventId, onBack }: EventProcessingPanelPr
             </div>
             <h2 className="text-xl font-bold tracking-tight text-foreground flex items-center gap-2 mt-1">
               <Cpu className="size-5 text-primary" />
-              Event Sim: <span className="text-primary/90">{event.eventType}</span>
+              Event Sim:{" "}
+              <span className="text-primary/90">{event.eventType}</span>
             </h2>
           </div>
         </div>
@@ -86,10 +112,10 @@ export function EventProcessingPanel({ eventId, onBack }: EventProcessingPanelPr
             variant="outline"
             size="xs"
             onClick={() => setShowPayload(!showPayload)}
-            className="h-8 text-[11px] gap-1 px-3 border-border/40"
+            className="h-8 text-xs gap-1 px-3 border-border/40"
           >
             <FileJson className="size-3.5" />
-            {showPayload ? 'Hide Payload' : 'View Payload'}
+            {showPayload ? "Hide Payload" : "View Payload"}
           </Button>
 
           <Button
@@ -98,9 +124,11 @@ export function EventProcessingPanel({ eventId, onBack }: EventProcessingPanelPr
             size="xs"
             onClick={() => refetch()}
             disabled={isFetching}
-            className="h-8 text-[11px] gap-1.5 px-3 border-border/40"
+            className="h-8 text-xs gap-1.5 px-3 border-border/40"
           >
-            <RefreshCw className={`size-3.5 ${isFetching ? 'animate-spin' : ''}`} />
+            <RefreshCw
+              className={`size-3.5 ${isFetching ? "animate-spin" : ""}`}
+            />
             Refresh
           </Button>
         </div>
@@ -108,10 +136,15 @@ export function EventProcessingPanel({ eventId, onBack }: EventProcessingPanelPr
 
       {/* Processing Error */}
       {event.error && (
-        <Alert variant="destructive" className="bg-destructive/5 border-destructive/20 py-3">
+        <Alert
+          variant="destructive"
+          className="bg-destructive/5 border-destructive/20 py-3"
+        >
           <AlertTriangle className="size-4" />
-          <AlertTitle className="text-xs font-bold">Processing Error</AlertTitle>
-          <AlertDescription className="text-[11px] font-medium mt-0.5 opacity-90">
+          <AlertTitle className="text-xs font-bold">
+            Processing Error
+          </AlertTitle>
+          <AlertDescription className="text-xs font-medium mt-0.5 opacity-90">
             {event.error}
           </AlertDescription>
         </Alert>
@@ -120,10 +153,10 @@ export function EventProcessingPanel({ eventId, onBack }: EventProcessingPanelPr
       {/* Payload Display */}
       {showPayload && (
         <div className="rounded-lg border border-border/40 bg-black/95 p-4 overflow-x-auto relative">
-          <div className="absolute top-2.5 right-2.5 text-[9px] font-semibold text-muted-foreground/60 uppercase tracking-widest bg-muted/20 border border-border/10 px-1.5 py-0.5 rounded">
+          <div className="absolute top-2.5 right-2.5 text-xs font-semibold text-muted-foreground/60 uppercase tracking-widest bg-muted/20 border border-border/10 px-1.5 py-0.5 rounded">
             JSON
           </div>
-          <pre className="text-[11px] font-mono text-emerald-400/90 leading-relaxed">
+          <pre className="text-xs font-mono text-emerald-400/90 leading-relaxed">
             {JSON.stringify(event.payload, null, 2)}
           </pre>
         </div>
@@ -132,36 +165,50 @@ export function EventProcessingPanel({ eventId, onBack }: EventProcessingPanelPr
       {/* Grid: Timeline + Jobs */}
       <div className="grid gap-6 lg:grid-cols-12 items-start">
         {/* Left Hand: Operations Timeline */}
-        <div className="lg:col-span-7 bg-card/15 border border-border/40 backdrop-blur-md rounded-xl p-5 shadow-[0_4px_20px_rgba(0,0,0,0.02)]">
+        <div className="lg:col-span-7 bg-card/15 border border-border/40 rounded-xl p-5 shadow-[0_4px_20px_rgba(0,0,0,0.02)]">
           <EventTimeline event={event} />
         </div>
 
         {/* Right Hand: Active Jobs List */}
         <div className="lg:col-span-5 space-y-6">
-          <div className="bg-card/15 border border-border/40 backdrop-blur-md rounded-xl p-5 shadow-[0_4px_20px_rgba(0,0,0,0.02)]">
+          <div className="bg-card/15 border border-border/40 rounded-xl p-5 shadow-[0_4px_20px_rgba(0,0,0,0.02)]">
             <div className="flex items-center justify-between border-b border-border/20 pb-4 mb-4">
               <h3 className="text-xs font-semibold text-foreground uppercase tracking-wider">
                 Run Information
               </h3>
             </div>
-            <div className="space-y-3 text-[11px]">
+            <div className="space-y-3 text-xs">
               <div className="flex justify-between items-center py-1 border-b border-border/10">
                 <span className="text-muted-foreground flex items-center gap-1">
                   <Calendar className="size-3.5" /> Created At
                 </span>
-                <span className="font-medium text-foreground">{formatDate(event.createdAt)}</span>
+                <span className="font-medium text-foreground">
+                  {formatDate(event.createdAt)}
+                </span>
               </div>
               <div className="flex justify-between items-center py-1 border-b border-border/10">
-                <span className="text-muted-foreground">Idempotency Verify</span>
-                <span className="text-emerald-500 font-semibold uppercase tracking-wider text-[9px]">Verified</span>
+                <span className="text-muted-foreground">
+                  Idempotency Verify
+                </span>
+                <span className="text-emerald-500 font-semibold uppercase tracking-wider text-xs">
+                  Verified
+                </span>
               </div>
               <div className="flex justify-between items-center py-1 border-b border-border/10">
-                <span className="text-muted-foreground">Matching Job Count</span>
-                <span className="font-semibold text-foreground">{event.jobCount}</span>
+                <span className="text-muted-foreground">
+                  Matching Job Count
+                </span>
+                <span className="font-semibold text-foreground">
+                  {event.jobCount}
+                </span>
               </div>
               <div className="flex justify-between items-center py-1">
-                <span className="text-muted-foreground">Orchestration Gateway</span>
-                <span className="font-medium text-foreground">Inngest Workflow Engine</span>
+                <span className="text-muted-foreground">
+                  Orchestration Gateway
+                </span>
+                <span className="font-medium text-foreground">
+                  Inngest Workflow Engine
+                </span>
               </div>
             </div>
           </div>
@@ -170,6 +217,6 @@ export function EventProcessingPanel({ eventId, onBack }: EventProcessingPanelPr
         </div>
       </div>
     </div>
-  )
+  );
 }
-export default EventProcessingPanel
+export default EventProcessingPanel;

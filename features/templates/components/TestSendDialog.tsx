@@ -1,11 +1,14 @@
-'use client'
+"use client";
 
-import * as React from 'react'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { testSendSchema, type TestSendFormValues } from '@/schemas/testSend.schema'
-import { useTestSend } from '@/features/templates/hooks/useTemplates'
-import { usePreviewStore } from '@/stores/previewStore'
+import * as React from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  testSendSchema,
+  type TestSendFormValues,
+} from "@/schemas/testSend.schema";
+import { useTestSend } from "@/features/templates/hooks/useTemplates";
+import { usePreviewStore } from "@/stores/previewStore";
 import {
   Dialog,
   DialogContent,
@@ -13,19 +16,19 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
-import { Loader2 } from 'lucide-react'
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Loader2 } from "lucide-react";
 
 interface TestSendDialogProps {
-  open: boolean
-  onOpenChange: (open: boolean) => void
-  templateId: string
-  templateName: string
-  variables: string[]
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  templateId: string;
+  templateName: string;
+  variables: string[];
 }
 
 export function TestSendDialog({
@@ -35,16 +38,16 @@ export function TestSendDialog({
   templateName,
   variables,
 }: TestSendDialogProps) {
-  const { mutate: testSend, isPending } = useTestSend()
-  const { mockPayload } = usePreviewStore()
-  
-  const [payloadText, setPayloadText] = React.useState('')
+  const { mutate: testSend, isPending } = useTestSend();
+  const { mockPayload } = usePreviewStore();
+
+  const [payloadText, setPayloadText] = React.useState("");
 
   React.useEffect(() => {
     if (open) {
-      setPayloadText(JSON.stringify(mockPayload, null, 2))
+      setPayloadText(JSON.stringify(mockPayload, null, 2));
     }
-  }, [mockPayload, open])
+  }, [mockPayload, open]);
 
   const {
     register,
@@ -54,20 +57,20 @@ export function TestSendDialog({
   } = useForm<TestSendFormValues>({
     resolver: zodResolver(testSendSchema),
     defaultValues: {
-      to: '',
+      to: "",
       payload: {},
     },
-  })
+  });
 
   const onSubmit = (values: TestSendFormValues) => {
-    let parsedPayload: Record<string, unknown> = {}
+    let parsedPayload: Record<string, unknown> = {};
     try {
       if (payloadText.trim()) {
-        parsedPayload = JSON.parse(payloadText)
+        parsedPayload = JSON.parse(payloadText);
       }
     } catch {
       // If parsing fails, fall back to current mockPayload from store
-      parsedPayload = mockPayload
+      parsedPayload = mockPayload;
     }
 
     testSend(
@@ -80,12 +83,12 @@ export function TestSendDialog({
       },
       {
         onSuccess: () => {
-          reset()
-          onOpenChange(false)
+          reset();
+          onOpenChange(false);
         },
-      }
-    )
-  }
+      },
+    );
+  };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -93,7 +96,8 @@ export function TestSendDialog({
         <DialogHeader>
           <DialogTitle>Send Test Email</DialogTitle>
           <DialogDescription>
-            Test your template "{templateName}" by sending an email with mock variables.
+            Test your template "{templateName}" by sending an email with mock
+            variables.
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 py-2">
@@ -102,11 +106,13 @@ export function TestSendDialog({
             <Input
               id="to"
               placeholder="you@example.com"
-              {...register('to')}
+              {...register("to")}
               disabled={isPending}
             />
             {errors.to && (
-              <p className="text-xs font-medium text-destructive">{errors.to.message}</p>
+              <p className="text-xs font-medium text-destructive">
+                {errors.to.message}
+              </p>
             )}
           </div>
 
@@ -122,7 +128,10 @@ export function TestSendDialog({
               disabled={isPending}
             />
             <p className="text-xs text-muted-foreground">
-              Provide values for your template variables: {variables.length > 0 ? variables.map(v => `{{${v}}}`).join(', ') : 'No variables detected'}
+              Provide values for your template variables:{" "}
+              {variables.length > 0
+                ? variables.map((v) => `{{${v}}}`).join(", ")
+                : "No variables detected"}
             </p>
           </div>
 
@@ -143,5 +152,5 @@ export function TestSendDialog({
         </form>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

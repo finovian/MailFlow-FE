@@ -1,46 +1,46 @@
-'use client'
+"use client";
 
-import * as React from 'react'
-import { usePreviewStore } from '@/stores/previewStore'
-import { useEditorStore } from '@/stores/editorStore'
-import { getFieldsForEventType } from '@/constants/eventTypes'
-import { cn } from '@/lib/utils'
+import * as React from "react";
+import { usePreviewStore } from "@/stores/previewStore";
+import { useEditorStore } from "@/stores/editorStore";
+import { getFieldsForEventType } from "@/constants/eventTypes";
+import { cn } from "@/lib/utils";
 
 interface TemplatePreviewProps {
-  htmlContent: string
+  htmlContent: string;
 }
 
 export default function TemplatePreview({ htmlContent }: TemplatePreviewProps) {
-  const { mockPayload, viewportMode } = usePreviewStore()
-  const { eventType } = useEditorStore()
+  const { mockPayload, viewportMode } = usePreviewStore();
+  const { eventType } = useEditorStore();
 
   // Replace placeholders with mock values
   const renderedHtml = React.useMemo(() => {
-    let rendered = htmlContent
+    let rendered = htmlContent;
 
     Object.entries(mockPayload).forEach(([key, value]) => {
-      const regex = new RegExp(`\\{\\{\\s*${key}\\s*\\}\\}`, 'g')
-      rendered = rendered.replace(regex, String(value ?? ''))
-    })
+      const regex = new RegExp(`\\{\\{\\s*${key}\\s*\\}\\}`, "g");
+      rendered = rendered.replace(regex, String(value ?? ""));
+    });
 
     // Get field info for the current event type to show types in placeholders
-    const fields = getFieldsForEventType(eventType)
+    const fields = getFieldsForEventType(eventType);
 
     // Clean up any remaining unpopulated braces with placeholder styles
     rendered = rendered.replace(
       /\{\{\s*([a-zA-Z0-9_.]+)\s*\}\}/g,
       (match, varName) => {
-        const field = fields.find(f => f.name === varName)
-        const typeInfo = field ? `: ${field.type}` : ''
-        return `<span style="background-color: rgba(245, 158, 11, 0.2); color: #d97706; padding: 2px 4px; border-radius: 4px; font-size: 0.9em; font-family: monospace;">{{${varName}${typeInfo}}}</span>`
-      }
-    )
+        const field = fields.find((f) => f.name === varName);
+        const typeInfo = field ? `: ${field.type}` : "";
+        return `<span style="background-color: rgba(245, 158, 11, 0.2); color: #d97706; padding: 2px 4px; border-radius: 4px; font-size: 0.9em; font-family: monospace;">{{${varName}${typeInfo}}}</span>`;
+      },
+    );
 
     // Check if the htmlContent already has a full HTML structure
-    const hasHtmlStructure = /<html[^>]*>|<body[^>]*>/i.test(rendered)
+    const hasHtmlStructure = /<html[^>]*>|<body[^>]*>/i.test(rendered);
 
     if (hasHtmlStructure) {
-      return rendered
+      return rendered;
     }
 
     return `
@@ -67,15 +67,15 @@ export default function TemplatePreview({ htmlContent }: TemplatePreviewProps) {
           ${rendered}
         </body>
       </html>
-    `
-  }, [htmlContent, mockPayload])
+    `;
+  }, [htmlContent, mockPayload]);
 
   return (
     <div className="flex h-full w-full flex-col items-center justify-center bg-zinc-100/50 p-4 dark:bg-zinc-950/20">
       <div
         className={cn(
-          'overflow-hidden rounded-xl border border-border/60 bg-white shadow-lg transition-all duration-300 ease-in-out',
-          viewportMode === 'mobile' ? 'h-[640px] w-[375px]' : 'h-full w-full'
+          "overflow-hidden rounded-xl border border-border/60 bg-white shadow-lg transition-all duration-300 ease-in-out",
+          viewportMode === "mobile" ? "h-[640px] w-[375px]" : "h-full w-full",
         )}
       >
         {/* Frame header simulating a browser tab/device boundary */}
@@ -83,7 +83,9 @@ export default function TemplatePreview({ htmlContent }: TemplatePreviewProps) {
           <div className="size-2.5 rounded-full bg-red-500/80" />
           <div className="size-2.5 rounded-full bg-yellow-500/80" />
           <div className="size-2.5 rounded-full bg-green-500/80" />
-          <div className="mx-auto text-xs text-muted-foreground">Sandbox Preview</div>
+          <div className="mx-auto text-xs text-muted-foreground">
+            Sandbox Preview
+          </div>
         </div>
 
         <iframe
@@ -94,5 +96,5 @@ export default function TemplatePreview({ htmlContent }: TemplatePreviewProps) {
         />
       </div>
     </div>
-  )
+  );
 }

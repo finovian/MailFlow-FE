@@ -1,24 +1,24 @@
-'use client'
+"use client";
 
-import { Button } from '@/components/ui/button'
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+} from "@/components/ui/select";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface DataTablePaginationProps {
-  page: number
-  pageSize: number
-  total: number
-  onPageChange: (page: number) => void
-  onPageSizeChange: (size: number) => void
+  page: number;
+  pageSize: number;
+  total: number;
+  onPageChange: (page: number) => void;
+  onPageSizeChange: (size: number) => void;
 }
 
-const PAGE_SIZE_OPTIONS = [10, 20, 50]
+const PAGE_SIZE_OPTIONS = [10, 20, 50];
 
 export function DataTablePagination({
   page,
@@ -27,22 +27,18 @@ export function DataTablePagination({
   onPageChange,
   onPageSizeChange,
 }: DataTablePaginationProps) {
-  const totalPages = Math.ceil(total / pageSize)
-  const start = total === 0 ? 0 : (page - 1) * pageSize + 1
-  const end = Math.min(page * pageSize, total)
-  const isFirstPage = page <= 1
-  const isLastPage = page >= totalPages
+  const totalPages = Math.ceil(total / pageSize);
+  const start = total === 0 ? 0 : (page - 1) * pageSize + 1;
+  const end = Math.min(page * pageSize, total);
+  const isFirstPage = page <= 1;
+  const isLastPage = page >= totalPages;
 
   return (
     <div className="flex flex-col items-center justify-between gap-3 px-1 py-3 sm:flex-row">
       <p className="text-sm text-muted-foreground">
-        Showing{' '}
-        <span className="font-medium text-foreground">{start}</span>
-        {' '}to{' '}
-        <span className="font-medium text-foreground">{end}</span>
-        {' '}of{' '}
-        <span className="font-medium text-foreground">{total}</span>
-        {' '}results
+        Showing <span className="font-medium text-foreground">{start}</span> to{" "}
+        <span className="font-medium text-foreground">{end}</span> of{" "}
+        <span className="font-medium text-foreground">{total}</span> results
       </p>
 
       <div className="flex items-center gap-3">
@@ -76,7 +72,7 @@ export function DataTablePagination({
             <ChevronLeft className="size-4" />
           </Button>
           <span className="min-w-[4rem] text-center text-sm text-muted-foreground">
-            {totalPages === 0 ? '0 / 0' : `${page} / ${totalPages}`}
+            {totalPages === 0 ? "0 / 0" : `${page} / ${totalPages}`}
           </span>
           <Button
             variant="outline"
@@ -90,5 +86,5 @@ export function DataTablePagination({
         </div>
       </div>
     </div>
-  )
+  );
 }

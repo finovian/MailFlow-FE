@@ -1,19 +1,25 @@
-'use client'
+"use client";
 
-import * as React from "react"
-import { Eye, EyeOff } from "lucide-react"
-import { cn } from "@/lib/utils"
-import { InputGroup, InputGroupInput, InputGroupAddon, InputGroupButton } from "./input-group"
+import * as React from "react";
+import { Eye, EyeOff } from "lucide-react";
+import { cn } from "@/lib/utils";
+import {
+  InputGroup,
+  InputGroupInput,
+  InputGroupAddon,
+  InputGroupButton,
+} from "./input-group";
 
-export interface PasswordInputProps
-  extends React.ComponentProps<"input"> {}
+export interface PasswordInputProps extends React.ComponentProps<"input"> {}
 
 const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputProps>(
   ({ className, ...props }, ref) => {
-    const [showPassword, setShowPassword] = React.useState(false)
+    const [showPassword, setShowPassword] = React.useState(false);
 
     return (
-      <InputGroup className={cn("has-[>[data-align=inline-end]]:pr-0", className)}>
+      <InputGroup
+        className={cn("has-[>[data-align=inline-end]]:pr-0", className)}
+      >
         <InputGroupInput
           {...props}
           type={showPassword ? "text" : "password"}
@@ -33,9 +39,9 @@ const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputProps>(
           </InputGroupButton>
         </InputGroupAddon>
       </InputGroup>
-    )
-  }
-)
-PasswordInput.displayName = "PasswordInput"
+    );
+  },
+);
+PasswordInput.displayName = "PasswordInput";
 
-export { PasswordInput }
+export { PasswordInput };
